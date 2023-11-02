@@ -2,6 +2,7 @@ import express from "express"
 import mongoose from 'mongoose'
 import User from './models/User.js';
 import Product from "./models/Product.js";
+import Order from "./models/Order.js"
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -15,7 +16,7 @@ const connectDB = async () => {
         console.log("MongoDB connected");
     }
 };
-//POST /signup
+//POST /signup+
 
 app.post("/signup", async (req, res) => {
     const { name, email, password, mobile, address, gender } = req.body;
@@ -198,6 +199,7 @@ app.delete("/product/:id", async(req, res)=>{
 app.get("/product", async(req, res) =>{
     const {q } = req.query;
     const products = await Product.find({name: {$regex: q, $options:"i"}});
+
 res.json({
     success: true,
     data: products,
@@ -205,6 +207,103 @@ res.json({
 });
 
 });
+
+//POST/ Order
+
+app.post("/order", async(req,res)=>{
+const {user, product, quantity, shippingAddress,  diliveryCharges } = req.body;
+
+const order = new Order({
+    user:user,
+    product:product,
+    quantity:quantity,
+    shippingAddress: shippingAddress,
+    diliveryCharges:diliveryCharges
+
+});
+
+try{
+    const saveduser = await order.save();
+
+res.json({
+    success:true,
+    data: saveduser,
+    message:'Order created successfully'
+});
+}
+
+
+catch(e){
+    res.json({
+        success:false,
+        message:e.message
+    }); 
+}
+
+})
+
+//GET/order/:id
+
+app.get("/order/:id", async(req, res)=>{
+    const {id} = req.params;
+
+    const order = await Order.findById(id).populate("user product");
+      
+    //To hide user's password and gender make it undefined by using following syntax
+    order.user.password = undefined;
+    
+
+    res.json({
+        success:true,
+        data:order,
+        message:"order is fetched successfully"
+    });
+});
+
+//GET / orders/user/:id
+app.get("/orders/user/:id", async(req, res)=>{
+    const{id} = req.params;
+
+const orders = await Order.find({user: id}).populate("user product");
+
+        res.json({
+            success:true,
+            data:orders,
+            message:"orders fetched successfully"
+        });
+    
+});
+
+//PATCH /orders/status/:id
+app.patch("/order/status/:id", async(req, res)=>{
+    const {id} = req.params;
+
+    const {status} = req.body;
+
+await Order.updateOne({_id: id}, {$set: {status: status}});
+
+    res.json({
+        success:true,
+        message:"order status updated successfully"
+    });
+
+})
+
+//GET /orders
+app.get("/orders", async(req, res)=>{
+    const orders = await Order.find().populate("user product");
+    orders.forEach((order)=>{
+        order.user.password = undefined;
+
+    })
+
+    res.json({
+        success:true,
+        data:orders,
+        message:"Orders fetched successfully"
+    })
+} );
+
 
 const PORT = process.env.PORT || 5000;
 
