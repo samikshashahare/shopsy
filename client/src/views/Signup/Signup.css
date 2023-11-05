@@ -1,0 +1,20 @@
+
+.signup-form{
+    width:fit-content;
+    height:450px;
+    background-color: #fff;
+    margin: 50px auto;
+    /* margin-right: auto; */
+    padding:20px 70px;
+    box-shadow: 1px 1px 5px 1px grey;
+    border-radius: 10px;
+    align-items: center;
+    
+}
+.gender{
+
+}
+.signup-btn{
+    display: block;
+    margin: 10px auto;
+}
