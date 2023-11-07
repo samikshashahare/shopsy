@@ -7,12 +7,12 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const router = createBrowserRouter([
   
-  // {
-  //   path:'',
-  //   element: <Home />
-  // },
   {
-    path:'',
+    path:'/',
+    element: <h1>Home</h1>
+  },
+  {
+    path:'/login',
     element: <Login />
   },
   {

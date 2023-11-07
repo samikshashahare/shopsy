@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Signup.css';
+import { Link } from 'react-router-dom';
 
 
 function Signup() {
@@ -144,6 +145,11 @@ if(responce?.data?.success){
             className='btn signup-btn'
             onClick={signup}
           >signup</button>
+
+<p className="text-right">
+          <Link to="/login" >Already have an Account</Link>
+        </p>
+
         </div>
       </form>
     </div>

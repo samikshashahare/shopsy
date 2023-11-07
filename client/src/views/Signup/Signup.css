@@ -1,9 +1,9 @@
 
 .signup-form{
     width:fit-content;
-    height:450px;
+    /* height:450px; */
     background-color: #fff;
-    margin: 50px auto;
+    margin: 30px auto;
     /* margin-right: auto; */
     padding:20px 70px;
     box-shadow: 1px 1px 5px 1px grey;
@@ -12,9 +12,10 @@
     
 }
 .gender{
-
+margin-left: 20px;
 }
 .signup-btn{
     display: block;
     margin: 10px auto;
+    width:150px;
 }
