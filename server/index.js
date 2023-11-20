@@ -290,21 +290,33 @@ await Order.updateOne({_id: id}, {$set: {status: status}});
 })
 
 //GET /orders
-app.get("/orders", async(req, res)=>{
-    const orders = await Order.find().populate("user product");
-    orders.forEach((order)=>{
-        order.user.password = undefined;
+app.get("/orders", async (req, res) => {
+    try {
+        const { q } = req.query;
 
-    })
+        const orders = await Order.find(query).populate("user product");
+        
+        orders.forEach(order => {
+            if (order.user) {
+                order.user.password = undefined;
+            }
+        });
 
-    res.json({
-        success:true,
-        data:orders,
-        message:"Orders fetched successfully"
-    })
-} );
+        res.json({
+            success: true,
+            data: orders,
+            message: "Orders fetched successfully"
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Error fetching orders"
+        });
+    }
+});
 
-
+// Start your server
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Signup.css';
 import { Link } from 'react-router-dom';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 function Signup() {
@@ -52,8 +53,18 @@ if(responce?.data?.success){
 
 
   };
+
+  useEffect(()=>{
+    const storageUser = JSON.parse(localStorage.getItem("user"));
+    if(storageUser?.email){
+      alert("You are already logged in");
+    }
+  
+  },[])
+
   return (
     <div>
+      <Navbar />
       <form className='signup-form'>
         <h1 className='text-center'>signup</h1>
 

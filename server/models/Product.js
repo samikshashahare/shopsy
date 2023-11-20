@@ -21,7 +21,8 @@ const productSchema = new Schema({
     },
     brand: {
         type: String,
-    }
+    },
+    
 },
     {
         timestamps: true

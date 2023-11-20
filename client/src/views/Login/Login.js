@@ -1,13 +1,15 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Login.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../../components/Navbar/Navbar';
 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const login = async () => {
     const responce = await axios.post( "/login", {
       email: email,
@@ -21,8 +23,16 @@ function Login() {
         }
 
   }
+  useEffect(()=>{
+    const storageUser = JSON.parse(localStorage.getItem("user"));
+    if(storageUser?.email){
+      alert("You are already logged in");
+    }
+  
+  },[])
 return (
   <div>
+    <Navbar />
     <from className='login-form'>
       <h1 className='text-center'>Login</h1>
 

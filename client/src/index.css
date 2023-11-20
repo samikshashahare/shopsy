@@ -1,5 +1,7 @@
 body {
     background-color: rgb(226, 252, 243);
+    margin: 0;
+    padding: 0;
 }
 
 .text-center {
@@ -24,4 +26,7 @@ body {
     text-align: center;
     color:#fff;
     font-size: 17px;
+}
+.btn:hover{
+    cursor: pointer;
 }
