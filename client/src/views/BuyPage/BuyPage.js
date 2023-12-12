@@ -32,27 +32,24 @@ function BuyPage() {
 
 
     const placeOrder = async () => {
-    try {
-        const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+        
+            const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
 
-        const orderDetails = {
-            user: currentUser._id,
-            product: id,
-            quantity: quantity,
-            shippingAddress: shippingAddress
-        };
+            const orderDetails = {
+                user: currentUser._id,
+                product: id,
+                quantity: quantity,
+                shippingAddress: shippingAddress
+            };
 
-        const response = await axios.post('/order', orderDetails);
-        alert(response?.data?.message);
+            const response = await axios.post('/order', orderDetails);
+            alert(response?.data?.message);
 
-        if (response?.data?.success) {
-            window.location.href = '/orders';
-        }
-    } catch (error) {
-        console.error('Error placing order:', error);
-        // Handle the error (e.g., show an error message to the user)
-    }
-};
+            if (response?.data?.success) {
+                window.location.href = '/myorders';
+            }
+       
+    };
 
 
     useEffect(() => {

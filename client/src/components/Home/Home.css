@@ -1,3 +1,17 @@
-.product-create{
-    border: 1px solid black;
+.product-container{
+    display: flex;
+    margin-top:20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.search-bar{
+    width: 400px;
+    display: block;
+    font-size: 25px;
+    margin: 20px auto;
+    border-radius: 50px;
+    padding: 5px 20px;
+    border: 1px 1px grey;
+
 }
